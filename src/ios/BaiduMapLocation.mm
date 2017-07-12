@@ -59,4 +59,15 @@
     }
 }
 
+- (void)didFailToLocateUserWithError:(NSError *)error{
+    if(_execCommand != nil)
+    {
+        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        [result setKeepCallbackAsBool:TRUE];
+        [_locService stopUserLocationService];
+        [self.commandDelegate sendPluginResult:result callbackId:_execCommand.callbackId];
+        _execCommand = nil;
+    }
+}
+
 @end
